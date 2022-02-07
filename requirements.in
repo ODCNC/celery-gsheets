@@ -1,0 +1,5 @@
+django-celery-beat
+pygsheets
+python-decouple
+redis
+sentry_sdk

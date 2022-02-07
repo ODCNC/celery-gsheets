@@ -1,0 +1,4 @@
+{
+  "name": "gsheets",
+  "script": "./gsheets.py"
+}
