@@ -1,3 +1,5 @@
 black
+celery[pytest]
 pip-tools
 pre-commit
+pytest

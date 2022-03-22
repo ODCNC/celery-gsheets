@@ -1,0 +1,35 @@
+name: pytest
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Set up Python
+      uses: actions/setup-python@master
+      with:
+        python-version: 3.x
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip-tools
+        pip-compile
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+    - name: Create .env file
+      run: |
+        jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+      env:
+        SECRETS_CONTEXT: ${{ toJson(secrets) }}
+    - name: Create Google service account file
+      run: |
+        cat << E.O.F. > ${{ secrets.SERVICE_ACCOUNT_FILE }}
+          ${{ secrets.SERVICE_ACCOUNT_INFO }}
+        E.O.F.
+    - name: Run All Tests
+      run: |
+        python -m pytest
