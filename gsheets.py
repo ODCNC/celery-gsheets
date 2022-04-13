@@ -1,3 +1,4 @@
+#!/bin/env python
 from celery_gsheets.celery import app
 
 if __name__ == "__main__":

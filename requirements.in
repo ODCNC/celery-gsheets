@@ -1,4 +1,4 @@
-django-celery-beat
+celery
 pygsheets
 python-decouple
 redis
