@@ -8,15 +8,18 @@ def queue(project_name):
 
 # Celery
 
-GSHEETS_ACKS_LATE = True
-GSHEETS_ENABLE_UTC = False
-CELERYD_PREFETCH_MULTIPLIER = 1
-GSHEETS_TIMEZONE = 'Asia/Seoul'
-GSHEETS_QUEUES = [
+gsheets_acks_late = True
+gsheets_enable_utc = False
+gsheets_timezone = 'Asia/Seoul'
+gsheets_task_queues = [
     config('GSHEETS_PROJECT_NAME', cast=queue, default='gsheets'),
 ]
 
+gsheets_worker_concurrency = config('GSHEETS_WORKER_CONCURRENCY', 1)
+gsheets_worker_pool = 'solo'
+gsheets_worker_prefetch_multiplier = 1
+
 # Celery Gsheets
 
-GSHEETS_BROKER_URL = config('GSHEETS_BROKER_URL')
-GSHEETS_RESULT_BACKEND = config('GSHEETS_RESULT_BACKEND', 'redis://localhost:6379/0')
+gsheets_broker_url = config('GSHEETS_BROKER_URL')
+gsheets_result_backend = config('GSHEETS_RESULT_BACKEND', 'redis://localhost:6379/0')
