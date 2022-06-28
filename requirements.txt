@@ -84,7 +84,7 @@ python-decouple==3.6
     # via -r requirements.in
 pytz==2021.3
     # via celery
-redis==4.3.3
+redis==4.3.4
     # via -r requirements.in
 requests==2.27.1
     # via
