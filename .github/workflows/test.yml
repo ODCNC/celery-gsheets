@@ -16,10 +16,8 @@ jobs:
         python-version: 3.x
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip-tools
-        pip-compile
-        pip install -r requirements.txt
-        pip install -r requirements-dev.txt
+        python -m pip install poetry
+        poetry install
     - name: Create .env file
       run: |
         jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
@@ -32,4 +30,4 @@ jobs:
         E.O.F.
     - name: Run All Tests
       run: |
-        python -m pytest
+        poetry run pytest

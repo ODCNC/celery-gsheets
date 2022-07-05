@@ -3,13 +3,11 @@ ACTIVATE := . ${VIRTUAL_ENV}/*/activate
 
 all:
 	test -e .git/hooks/pre-commit || make pre-commit
-	test -d ${VIRTUAL_ENV} || make venv
+	test -d ${VIRTUAL_ENV} || make ${VIRTUAL_ENV}
 	make install-r
-venv:
+${VIRTUAL_ENV}:
 	test -d ${VIRTUAL_ENV} || python -m venv ${VIRTUAL_ENV}
 	${ACTIVATE} && pip install pip-tools pre-commit wheel
-install-r:
-	${ACTIVATE} && pip install -r requirements.txt
 pip-compile: ${VIRTUAL_ENV}
 	pip install pip-tools
 	pip-compile
@@ -19,6 +17,5 @@ pre-commit:
 	pre-commit install
 test: ${VIRTUAL_ENV}
 	${ACTIVATE} && ( \
-		pip install -r requirements-test.txt && \
 		python -m pytest \
 	)

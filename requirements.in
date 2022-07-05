@@ -1,5 +1,0 @@
-celery
-pygsheets
-python-decouple
-redis
-sentry_sdk
